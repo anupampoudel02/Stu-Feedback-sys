@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Enums\Role;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -23,6 +24,7 @@ class AuthController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        $user->assignRole(Role::STUDENT->value);
         $token = $user->createToken('authToken')->plainTextToken;
 
         return response()->json([
