@@ -47,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-}
+    public function generateOtp()
+    {
+        $this->otp = rand(100000, 999999);
+        $this->otp_expires_at = now()->addMinutes(10);
+        $this->save();
+    }
+};
+   
+
