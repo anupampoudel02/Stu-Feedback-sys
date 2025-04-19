@@ -20,4 +20,9 @@ class Module extends Model
     {
         return $this->hasMany(Module::class);
     }
+
+    public function moduleReviews()
+    {
+        return $this->hasMany(ModuleReview::class);
+    }
 }
