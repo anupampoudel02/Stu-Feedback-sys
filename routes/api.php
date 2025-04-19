@@ -13,8 +13,8 @@ Route::prefix('modules')->group(function () {
     Route::get('list', GetModuleController::class);
 });
 
-// Route::get('modules', [ModuleController::class, 'index']); // Get all modules
-// Route::get('modules/{moduleId}', [ModuleController::class, 'show']);
+Route::get('modules', [ModuleController::class, 'index']); // Get all modules
+Route::get('modules/{moduleId}', [ModuleController::class, 'show']);
 
 Route::middleware('auth:sanctum')->post('modules/{moduleId}/reviews', [ModuleReviewController::class, 'store']);
 Route::middleware('auth:sanctum')->get('modules/{moduleId}/reviews', [ModuleReviewController::class, 'show']);

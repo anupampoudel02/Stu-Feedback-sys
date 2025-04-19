@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ListModuleResource;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -11,8 +12,8 @@ class ModuleController extends Controller
     // Method to retrieve all modules
     public function index()
     {
-        $modules = Module::all(); // Get all modules
-        return response()->json($modules);
+        $modules = ListModuleResource::collection(Module::all()); // Get all modules
+        return Inertia::render('Module/Index', compact('modules'));
     }
 
     public function create()
@@ -22,15 +23,11 @@ class ModuleController extends Controller
     }
 
     // Method to retrieve a specific module
-    public function show($moduleId)
+    public function show($id)
     {
-        $module = Module::find($moduleId); // Find a specific module by ID
+        $module = Module::find($id); // Find a specific module by ID
 
-        if ($module) {
-            return response()->json($module);
-        }
-
-        return response()->json(['message' => 'Module not found'], 404);
+        return Inertia::render('Module/Show', compact('module'));
     }
 
     // Method to create a new module
@@ -60,7 +57,7 @@ class ModuleController extends Controller
         $module = Module::find($moduleId);
 
         if (!$module) {
-            return response()->json(['message' => 'Module not found'], 404);
+            return response()->json(['message' => 'Module not found 2'], 404);
         }
 
         // Validate the incoming request data
@@ -93,20 +90,10 @@ class ModuleController extends Controller
     // Method to delete a specific module
     public function destroy($moduleId)
     {
-        $module = Module::find($moduleId);
-
-        if (!$module) {
-            return response()->json(['message' => 'Module not found'], 404);
-        }
-
-        if ($module->image) {
-            \Storage::delete('public/' . $module->image);
-        }
+        $module = Module::with('moduleReviews')->findOrFail($moduleId);
 
         // Delete the module
         $module->delete();
 
-        // Return a response indicating successful deletion
-        return response()->json(['message' => 'Module deleted successfully']);
     }
 }

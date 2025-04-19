@@ -1,4 +1,4 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, router, useForm } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import { FormEventHandler } from 'react';
 
@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthLayout from '@/layouts/auth-layout';
 import AppLayout from '@/layouts/app-layout';
+import { toast } from 'sonner';
 
 type ModuleForm = {
     image: File | null;
@@ -34,6 +35,8 @@ export default function ModuleCreate({ status }: ModuleCreateProps) {
         post(route('admin.modules.store'), {
             onFinish: () => reset(),
             onSuccess: () => {
+                toast.success("Module created successfully");
+                router.visit(route('admin.modules.index'));
             }
         });
     };

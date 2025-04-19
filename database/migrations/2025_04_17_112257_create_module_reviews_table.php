@@ -10,7 +10,7 @@ class CreateModuleReviewsTable extends Migration
     {
         Schema::create('module_reviews', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('module_id')->constrained('modules');
+            $table->foreignId('module_id')->constrained('modules')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users'); // Assuming the user is a student
             $table->integer('rating'); // Rating from 1 to 5
             $table->text('feedback');
