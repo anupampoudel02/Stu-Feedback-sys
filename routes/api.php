@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Module\GetModuleController;
+use App\Http\Controllers\Api\Module\GetSingleModuleController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\ModuleReviewController;
 use App\Http\Controllers\TeacherReviewController;
@@ -11,10 +12,11 @@ use App\Http\Controllers\TeacherReviewController;
 
 Route::prefix('modules')->group(function () {
     Route::get('list', GetModuleController::class);
+    Route::get('/{id}', GetSingleModuleController::class);
 });
 
-Route::get('modules', [ModuleController::class, 'index']); // Get all modules
-Route::get('modules/{moduleId}', [ModuleController::class, 'show']);
+// Route::get('modules', [ModuleController::class, 'index']); // Get all modules
+// Route::get('modules/{moduleId}', [ModuleController::class, 'show']);
 
 Route::middleware('auth:sanctum')->post('modules/{moduleId}/reviews', [ModuleReviewController::class, 'store']);
 Route::middleware('auth:sanctum')->get('modules/{moduleId}/reviews', [ModuleReviewController::class, 'show']);

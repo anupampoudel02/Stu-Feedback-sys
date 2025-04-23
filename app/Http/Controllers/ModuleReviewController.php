@@ -40,7 +40,9 @@ class ModuleReviewController extends Controller
             return response()->json(['message' => 'Module not found'], 404);
         }
 
-        return response()->json($module->moduleReviews);
+        return response()->json([
+            'data' => $module->moduleReviews
+        ]);
     }
 }
 
