@@ -9,7 +9,7 @@ class Module extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'image', 'tutor'];
+    protected $fillable = ['name', 'description', 'image', 'tutor'];
 
     public function teacherReviews()
     {

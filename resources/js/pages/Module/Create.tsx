@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 
 type ModuleForm = {
     image: File | null;
-    title: string;
+    name: string;
     description: string;
     tutor: string;
 };
@@ -25,7 +25,7 @@ interface ModuleCreateProps {
 export default function ModuleCreate({ status }: ModuleCreateProps) {
     const { data, setData, post, processing, errors, reset } = useForm<Required<ModuleForm>>({
         image: null,
-        title: '',
+        name: '',
         description: '',
         tutor: ''
     });
@@ -67,11 +67,11 @@ export default function ModuleCreate({ status }: ModuleCreateProps) {
                             autoFocus
                             tabIndex={1}
                             autoComplete="name"
-                            value={data.title}
-                            onChange={(e) => setData('title', e.target.value)}
+                            value={data.name}
+                            onChange={(e) => setData('name', e.target.value)}
                             placeholder="Enter module name"
                         />
-                        <InputError message={errors.title} />
+                        <InputError message={errors.name} />
                     </div>
                     <div className="grid gap-2">
                         <Label htmlFor="name">Tutor Name</Label>
