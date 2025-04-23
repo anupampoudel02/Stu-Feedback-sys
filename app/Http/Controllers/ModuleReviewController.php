@@ -10,6 +10,13 @@ class ModuleReviewController extends Controller
 {
     public function store(Request $request, $moduleId)
     {
+        $module = Module::find($moduleId);
+
+        if(!$module) {
+            return response()->json([
+                'message' => 'Module not found'
+            ], 404);
+        }
         $request->validate([
             'rating' => 'required|integer|between:1,5',
             'feedback' => 'required|string',
