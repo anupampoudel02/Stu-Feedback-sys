@@ -22,25 +22,30 @@
         {{-- Inline style to set the HTML background color based on our theme in app.css --}}
         <style>
             html {
-                background-color: oklch(1 0 0);
+                background-color: oklch(1 0 0); /* Light theme background color */
             }
 
             html.dark {
-                background-color: oklch(0.145 0 0);
+                background-color: oklch(0.145 0 0); /* Dark theme background color */
             }
         </style>
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        {{-- Preconnect to Bunny Fonts for custom font integration --}}
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 
+        {{-- Inertia.js specific directives to handle routes, Vite, and page assets --}}
         @routes
         @viteReactRefresh
         @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+
+        {{-- Inertia Head for managing the meta tags and title dynamically --}}
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
+        {{-- This is where Inertia.js will render the page components dynamically --}}
         @inertia
     </body>
 </html>
