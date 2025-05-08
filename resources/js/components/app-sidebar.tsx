@@ -20,7 +20,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Feedback',
-        href: '/feedback',
+        href: '/admin/feedbacks',
         icon: LayoutGrid,
     },
 ];

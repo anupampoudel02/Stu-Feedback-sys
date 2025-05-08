@@ -17,7 +17,7 @@ Route::prefix('admin')->middleware('auth')->as('admin.')->group(function () {
     Route::resource('teacher-reviews', AdminController::class);
     Route::resource('modules', ModuleController::class);
     // Feedbacks
-    Route::get('feedbacks', [AdminController::class, 'indexFeedbacks'])->name('admin.feedbacks.index');
+    Route::get('feedbacks', [ModuleController::class, 'feedbackPanel'])->name('admin.feedbacks.index');
 
     // Students
     Route::get('students', [AdminController::class, 'indexStudents'])->name('admin.students.index');
