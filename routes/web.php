@@ -5,6 +5,10 @@ use Inertia\Inertia;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\ModuleController;
 
+Route::get('/', function () {
+    return redirect('/dashboard');
+});
+
 Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('dashboard', [AdminController::class, 'index'])->name('dashboard');
 Route::prefix('admin')->middleware('auth')->as('admin.')->group(function () {
