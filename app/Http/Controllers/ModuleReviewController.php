@@ -14,9 +14,7 @@ class ModuleReviewController extends Controller
 
         $user = auth('sanctum')->user();
 
-        $reviewExists = $user->whereHas('reviews', function ($q)  use ($module) {
-            $q->where('id', $module->id);
-        });
+        $reviewExists = $user->reviews()->wherePivot('module_id', $moduleId)->exists();
 
         if($reviewExists) {
             return response()->json([
