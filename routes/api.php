@@ -25,6 +25,16 @@ Route::middleware('auth:sanctum')->get('modules/{moduleId}/reviews', [ModuleRevi
 Route::post('teachers/{teacherId}/modules/{moduleId}/reviews', [TeacherReviewController::class, 'store']);
 Route::get('teachers/{teacherId}/modules/{moduleId}/reviews', [TeacherReviewController::class, 'show']);
 
+Route::middleware('auth:sanctum')->put('/user', function (Request $request) {
+    $validate = $request->validate([
+        'email' => 'required|email|ends_with:@heraldcollege.edu.np|unique:users,id,'.auth()->id(),
+        'name' => 'required|string|max:100',
+    ]);
+
+    auth('sanctum')->user()->update($validate);
+
+    return response()->json(['message' => 'Updated user successfully!']);
+});
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
