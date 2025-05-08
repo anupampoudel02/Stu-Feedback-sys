@@ -14,7 +14,7 @@ class GetSingleModuleController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $module = Module::findOrFail($id);
+        $module = Module::with('moduleReviews')->findOrFail($id);
 
         return new SingleModuleResource($module);
     }

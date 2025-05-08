@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class SingleModuleResource extends JsonResource
+class ListFeedbackResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,10 @@ class SingleModuleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'description' => $this->description,
-            'image' => asset($this->image),
-            'tutor' => $this->tutor,
-            'feedbacks' => $this->whenLoaded('moduleReviews', ListFeedbackResource::collection($this->moduleReviews))
+            'module' => $this->module->name,
+            'user' => $this->user,
+            'rating' => $this->rating,
+            'feedback' => $this->feedback
         ];
     }
 }

@@ -19,7 +19,7 @@ class ListModuleResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'image' => asset('storage/'.$this->image),
-            'tutor' => $this->tutor
+            'tutor' => $this->tutor,
         ];
     }
 }
