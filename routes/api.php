@@ -21,6 +21,10 @@ Route::prefix('modules')->group(function () {
 Route::middleware('auth:sanctum')->post('modules/{moduleId}/reviews', [ModuleReviewController::class, 'store']);
 Route::middleware('auth:sanctum')->get('modules/{moduleId}/reviews', [ModuleReviewController::class, 'show']);
 
+// Add this new route for updating a specific review
+Route::middleware('auth:sanctum')->put('modules/{moduleId}/reviews/{reviewId}', [ModuleReviewController::class, 'update']);
+// Or if you prefer PATCH (for partial updates)
+Route::middleware('auth:sanctum')->patch('modules/{moduleId}/reviews/{reviewId}', [ModuleReviewController::class, 'update']);
 
 Route::post('teachers/{teacherId}/modules/{moduleId}/reviews', [TeacherReviewController::class, 'store']);
 Route::get('teachers/{teacherId}/modules/{moduleId}/reviews', [TeacherReviewController::class, 'show']);

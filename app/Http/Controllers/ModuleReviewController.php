@@ -56,5 +56,25 @@ class ModuleReviewController extends Controller
             'data' => $module->moduleReviews
         ]);
     }
+
+    public function update(Request $request, $moduleId, $reviewId)
+    {
+        $review = ModuleReview::where('id', $reviewId)
+            ->where('module_id', $moduleId)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'feedback' => 'required|string|max:500',
+        ]);
+
+        $review->update($validated);
+
+        return response()->json([
+            'message' => 'Review updated successfully',
+            'data' => $review
+        ]);
+    }
 }
 
