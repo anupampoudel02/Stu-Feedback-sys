@@ -12,6 +12,18 @@ class ModuleReviewController extends Controller
     {
         $module = Module::find($moduleId);
 
+        $user = auth('sanctum')->user();
+
+        $reviewExists = $user->whereHas('reviews', function ($q)  use ($module) {
+            $q->where('id', $module->id);
+        });
+
+        if($reviewExists) {
+            return response()->json([
+                'message' => 'Cannot review same module twice.'
+            ], 422);
+        }
+
         if(!$module) {
             return response()->json([
                 'message' => 'Module not found'
