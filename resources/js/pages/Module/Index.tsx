@@ -60,7 +60,7 @@ const ModuleIndex: React.FC<Props> = ({ modules }) => {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => router.visit(`/modules/${module.id}`)}
+                        onClick={() => router.visit(`/admin/modules/${module.id}`)}
                       >
                         <Eye className="h-4 w-4 mr-1" /> View
                       </Button>

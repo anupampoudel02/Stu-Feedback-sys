@@ -13,6 +13,7 @@ use App\Http\Controllers\TeacherReviewController;
 Route::prefix('modules')->group(function () {
     Route::get('list', GetModuleController::class);
     Route::get('/{id}', GetSingleModuleController::class);
+    Route::get('/feedback-panel', [ModuleController::class, 'feedbackPanel']);
 });
 
 // Route::get('modules', [ModuleController::class, 'index']); // Get all modules
