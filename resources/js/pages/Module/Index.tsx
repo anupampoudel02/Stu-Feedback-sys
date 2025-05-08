@@ -7,7 +7,7 @@ import AppLayout from '@/layouts/app-layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Trash2, Eye } from 'lucide-react';
+import { Trash2, Eye, Pencil } from 'lucide-react';
 
 interface Module {
   id: number;
@@ -57,6 +57,13 @@ const ModuleIndex: React.FC<Props> = ({ modules }) => {
                     </TableCell>
                     <TableCell>{module.description}</TableCell>
                     <TableCell className="text-right space-x-2">
+                      <Button
+                        variant="default"
+                        size="sm"
+                        onClick={() => router.visit(`/admin/modules/${module.id}/edit`)}
+                      >
+                        <Pencil className="h-4 w-4 mr-1" /> Edit
+                      </Button>
                       <Button
                         variant="outline"
                         size="sm"
