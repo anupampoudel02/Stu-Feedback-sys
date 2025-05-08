@@ -19,6 +19,8 @@ class SingleModuleResource extends JsonResource
             'description' => $this->description,
             'image' => asset($this->image),
             'tutor' => $this->tutor,
+            'rating_avg' => round($this->module_reviews_avg_rating, 1),
+            'reviews_count' => $this->module_reviews_count,
             'feedbacks' => $this->whenLoaded('moduleReviews', ListFeedbackResource::collection($this->moduleReviews))
         ];
     }
