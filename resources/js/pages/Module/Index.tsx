@@ -53,7 +53,7 @@ const ModuleIndex: React.FC<Props> = ({ modules }) => {
                   <TableRow key={module.id}>
                     <TableCell className="font-medium">{module.name}</TableCell>
                     <TableCell>
-                      <img style={{height: '100px'}} src={`${module.image}`} alt="" />
+                      <img style={{height: '100px'}} src={`${module.image}?ngrok-skip-browser-warning=true`} alt="" />
                     </TableCell>
                     <TableCell width={100}>
                       <span className='truncate text-ellipsis w-40 flex'>
