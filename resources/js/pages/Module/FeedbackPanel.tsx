@@ -19,7 +19,7 @@ export default function FeedbackPanel({ modules }) {
                                     <span className="text-gray-500">({module.total_reviews} reviews)</span>
                                 </div>
                                 <Link
-                                    href={`/modules/${module.id}`}
+                                    href={`/admin/modules/${module.id}`}
                                     className="text-blue-600 hover:text-blue-800 font-medium"
                                 >
                                     View Details →
