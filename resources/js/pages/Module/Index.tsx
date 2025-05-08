@@ -55,7 +55,12 @@ const ModuleIndex: React.FC<Props> = ({ modules }) => {
                     <TableCell>
                       <img style={{height: '100px'}} src={`${module.image}`} alt="" />
                     </TableCell>
-                    <TableCell>{module.description}</TableCell>
+                    <TableCell width={100}>
+                      <span className='truncate text-ellipsis w-40 flex'>
+
+                      {module.description}
+                      </span>
+                      </TableCell>
                     <TableCell className="text-right space-x-2">
                       <Button
                         variant="default"
