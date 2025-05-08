@@ -22,6 +22,15 @@ class ModuleController extends Controller
         return Inertia::render('Module/Create');
     }
 
+    // Add this method after create()
+    public function edit($id)
+    {
+        $module = Module::findOrFail($id);
+        return Inertia::render('Module/Edit', [
+            'module' => $module
+        ]);
+    }
+
     // Method to retrieve a specific module
     public function show($id)
     {
@@ -89,11 +98,6 @@ class ModuleController extends Controller
         // Update the module
         $module->update($validatedData);
 
-        // Return a response indicating successful update
-        return response()->json([
-            'message' => 'Module updated successfully',
-            'module' => $module
-        ]);
     }
 
     // Method to delete a specific module
