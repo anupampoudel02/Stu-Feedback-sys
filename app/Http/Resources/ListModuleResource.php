@@ -20,6 +20,8 @@ class ListModuleResource extends JsonResource
             'description' => $this->description,
             'image' => asset('storage/'.$this->image),
             'tutor' => $this->tutor,
+            'rating_avg' => round($this->module_reviews_avg_rating, 1),
+            'reviews_count' => $this->module_reviews_count,
         ];
     }
 }
