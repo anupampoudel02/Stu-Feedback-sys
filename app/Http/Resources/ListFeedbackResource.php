@@ -19,7 +19,8 @@ class ListFeedbackResource extends JsonResource
             'module' => $this->module->name,
             'user' => $this->user,
             'rating' => $this->rating,
-            'feedback' => $this->feedback
+            'feedback' => $this->feedback,
+            'created_at' => $this->created_at
         ];
     }
 }
