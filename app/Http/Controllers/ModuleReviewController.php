@@ -12,6 +12,18 @@ class ModuleReviewController extends Controller
     {
         $module = Module::find($moduleId);
 
+        $user = auth('sanctum')->user();
+
+        $reviewExists = $user->whereHas('reviews', function ($q)  use ($module) {
+            $q->where('id', $module->id);
+        });
+
+        if($reviewExists) {
+            return response()->json([
+                'message' => 'Cannot review same module twice.'
+            ], 422);
+        }
+
         if(!$module) {
             return response()->json([
                 'message' => 'Module not found'
@@ -42,6 +54,26 @@ class ModuleReviewController extends Controller
 
         return response()->json([
             'data' => $module->moduleReviews
+        ]);
+    }
+
+    public function update(Request $request, $moduleId, $reviewId)
+    {
+        $review = ModuleReview::where('id', $reviewId)
+            ->where('module_id', $moduleId)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'feedback' => 'required|string|max:500',
+        ]);
+
+        $review->update($validated);
+
+        return response()->json([
+            'message' => 'Review updated successfully',
+            'data' => $review
         ]);
     }
 }

@@ -14,7 +14,7 @@ class GetModuleController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $modules = Module::all();
+        $modules = Module::withCount('moduleReviews')->withAvg('moduleReviews', 'rating')->get();
 
 
         return ListModuleResource::collection($modules);

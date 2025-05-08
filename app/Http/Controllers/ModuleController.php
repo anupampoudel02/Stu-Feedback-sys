@@ -22,12 +22,30 @@ class ModuleController extends Controller
         return Inertia::render('Module/Create');
     }
 
+    // Add this method after create()
+    public function edit($id)
+    {
+        $module = Module::findOrFail($id);
+        return Inertia::render('Module/Edit', [
+            'module' => $module
+        ]);
+    }
+
     // Method to retrieve a specific module
     public function show($id)
     {
-        $module = Module::find($id); // Find a specific module by ID
+        $module = Module::with(['moduleReviews.user', 'moduleReviews' => function($query) {
+            $query->latest();
+        }])->findOrFail($id);
 
-        return Inertia::render('Module/Show', compact('module'));
+        $averageRating = $module->moduleReviews->avg('rating');
+        $totalReviews = $module->moduleReviews->count();
+        return Inertia::render('Module/Show', [
+            'module' => $module,
+            'averageRating' => round($averageRating, 1),
+            'totalReviews' => $totalReviews,
+            'reviews' => $module->moduleReviews
+        ]);
     }
 
     // Method to create a new module
@@ -80,11 +98,6 @@ class ModuleController extends Controller
         // Update the module
         $module->update($validatedData);
 
-        // Return a response indicating successful update
-        return response()->json([
-            'message' => 'Module updated successfully',
-            'module' => $module
-        ]);
     }
 
     // Method to delete a specific module
@@ -95,5 +108,25 @@ class ModuleController extends Controller
         // Delete the module
         $module->delete();
 
+    }
+
+    public function feedbackPanel()
+    {
+        $modules = Module::withCount('moduleReviews')
+            ->withAvg('moduleReviews', 'rating')
+            ->get()
+            ->map(function ($module) {
+                return [
+                    'id' => $module->id,
+                    'name' => $module->name,
+                    'description' => $module->description,
+                    'average_rating' => round($module->module_reviews_avg_rating ?? 0, 1),
+                    'total_reviews' => $module->module_reviews_count,
+                ];
+            });
+
+        return Inertia::render('Module/FeedbackPanel', [
+            'modules' => $modules
+        ]);
     }
 }
