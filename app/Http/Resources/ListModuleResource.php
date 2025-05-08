@@ -16,7 +16,7 @@ class ListModuleResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
+            'name' => $this->name,
             'description' => $this->description,
             'image' => asset('storage/'.$this->image),
             'tutor' => $this->tutor
