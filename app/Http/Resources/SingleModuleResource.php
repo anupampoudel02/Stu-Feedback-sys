@@ -17,7 +17,7 @@ class SingleModuleResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
-            'image' => asset($this->image),
+            'image' => asset('storage/'.$this->image),
             'tutor' => $this->tutor,
             'rating_avg' => round($this->module_reviews_avg_rating, 1),
             'reviews_count' => $this->module_reviews_count,
