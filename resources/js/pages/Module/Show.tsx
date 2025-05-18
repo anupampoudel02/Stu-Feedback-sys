@@ -54,7 +54,7 @@ export default function Show({ module, averageRating, totalReviews, reviews, aut
                 </div>
                 <p className="text-gray-700 mb-2">{review.feedback}</p>
                 <div className="flex items-center text-sm text-gray-500">
-                  <span>{review.user.name}</span>
+                  <span>{review.is_anonymous ? 'Anonymous' : review.user.name}</span>
                   <span className="mx-2">•</span>
                   <span>{new Date(review.created_at).toLocaleDateString()}</span>
                 </div>
