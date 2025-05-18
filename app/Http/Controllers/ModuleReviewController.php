@@ -30,6 +30,7 @@ class ModuleReviewController extends Controller
         $request->validate([
             'rating' => 'required|integer|between:1,5',
             'feedback' => 'required|string',
+            'is_anonymous' => 'required|boolean'
         ]);
 
         $moduleReview = new ModuleReview();
@@ -37,6 +38,7 @@ class ModuleReviewController extends Controller
         $moduleReview->user_id = auth('sanctum')->id(); // Assuming user is authenticated
         $moduleReview->rating = $request->rating;
         $moduleReview->feedback = $request->feedback;
+        $moduleReview->is_anonymous = $request->is_anonymous;
         $moduleReview->save();
 
         return response()->json(['message' => 'Feedback submitted successfully', 'data' => $moduleReview], 201);

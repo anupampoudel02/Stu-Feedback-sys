@@ -17,9 +17,11 @@ class ListFeedbackResource extends JsonResource
         return [
             'id' => $this->id,
             'module' => $this->module->name,
-            'user' => $this->user,
+            'user' =>$this->is_anonymous ? 'Anonymous':  $this->user,
             'rating' => $this->rating,
             'feedback' => $this->feedback,
+            
+            'is_anonymous' => $this->is_anonymous,
             'created_at' => $this->created_at
         ];
     }
