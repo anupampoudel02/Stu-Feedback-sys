@@ -11,7 +11,8 @@ export default function Edit({ auth, module }) {
         module.image ? `/storage/${module.image}` : null
     );
 
-    const { data, setData, put, processing, errors } = useForm({
+    const { data, setData, post, processing, errors } = useForm({
+        _method: 'PUT',
         name: module.name,
         description: module.description || '',
         tutor: module.tutor || '',
@@ -20,7 +21,7 @@ export default function Edit({ auth, module }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route('admin.modules.update', module.id), {
+        post(route('admin.modules.update', module.id), {
             preserveScroll: true,
             onSuccess: () => {
                 toast.success("Updated module")
